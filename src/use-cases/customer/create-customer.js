@@ -1,15 +1,26 @@
 const UC_createCustomer = ({ customerDb, makeCustomerEntity }) => {
     return async function createCustomer(data) {
-        const customer_data = data.customer
-        const order_id = data.order_id
-        const CustomerEntity = makeCustomerEntity({ customer_data });
+        const CustomerEntity = makeCustomerEntity({ data });
+
+        //check if existing username
+        const { username } = data;
+        const isExisting = await customerDb.isExisting({ username })
+            .catch(err => console.log(err));
+        if (isExisting.rowCount > 0) {
+            throw new Error("User already exists")
+        }
+        //
 
         const res = await customerDb.createCustomer({
-            order_id: order_id,
-            name: CustomerEntity.getName(),
+            username: CustomerEntity.getUsername(),
+            password: CustomerEntity.getPassword(),
+            first_name: CustomerEntity.getFirstname(),
+            last_name: CustomerEntity.getLastname(),
             contact: CustomerEntity.getContact(),
-            status: CustomerEntity.getStatus(),
             address: CustomerEntity.getAddress(),
+            status: CustomerEntity.getStatus(),
+
+
         })
             .catch(err => console.log(err));
 

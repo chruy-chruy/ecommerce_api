@@ -1,28 +1,25 @@
-const CON_createCustomer = ({ createCustomer }) => {
+const CON_getSingleCustomer = ({ getSingleCustomer }) => {
     return async function get(httpRequest) {
         const headers = {
             "Content-Type": "application/json",
-        };
-        try {
+        }; try {
             //get the httprequest body
-            const { source = {}, ...CustomerInfo } = httpRequest.body;
-            source.ip = httpRequest.ip;
-            source.browser = httpRequest.headers["User-agent"];
+            // if (httpRequest.headers["Referer"]) {
+            //     source.referrer = httpRequest.headers["Referer"];
+            // }
+            const toView = {
+                id: httpRequest.params.id,
+            }
 
-            const message = await createCustomer(CustomerInfo)
+            const user = await getSingleCustomer(toView);
 
-            const result = {
+            return {
                 headers: {
                     "Content-Type": "application/json"
                 },
                 statusCode: 200,
-                body: {
-                    message: message,
-                }
+                body: user
             };
-            console.log(result.body);
-            return result
-
         } catch (e) {
             console.log(e.message)
             return {
@@ -36,4 +33,4 @@ const CON_createCustomer = ({ createCustomer }) => {
     }
 }
 
-module.exports = CON_createCustomer
+module.exports = CON_getSingleCustomer
