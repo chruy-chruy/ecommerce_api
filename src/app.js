@@ -14,7 +14,7 @@ const deliveryRoute = require("./route/delivery");
 const product_deliveryRoute = require("./route/product&delivery");
 const orderRoute = require("./route/order");
 
-app.use("/api/users", userRoute);
+app.use("/api/user", userRoute);
 app.use("/api/customer", customerRoute);
 app.use("/api/supplier", supplierRoute);
 app.use("/api/product", productRoute);

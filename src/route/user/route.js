@@ -12,11 +12,11 @@ const {
 
 
 const userRouter = ({ router, verifyToken, makeExpressCallback }) => {
-    router.get("/", verifyToken, makeExpressCallback(fetchUsers))
-    router.post("/", verifyToken, makeExpressCallback(create))
-    router.get("/:id", verifyToken, makeExpressCallback(fetchSingleUser))
-    router.patch("/:id", verifyToken, makeExpressCallback(updateUserController))
-    router.delete("/delete/:id", verifyToken, makeExpressCallback(deleteUserController))
+    router.get("/", makeExpressCallback(fetchUsers))
+    router.post("/", makeExpressCallback(create))
+    router.get("/:id", makeExpressCallback(fetchSingleUser))
+    router.patch("/:id", makeExpressCallback(updateUserController))
+    router.delete("/delete/:id", makeExpressCallback(deleteUserController))
     router.post("/login", makeExpressCallback(login))
 
     return router

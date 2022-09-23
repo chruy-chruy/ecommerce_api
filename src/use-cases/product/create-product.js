@@ -32,7 +32,8 @@ const UC_createProduct = ({ productDb, makeProductEntity }) => {
                 status: ProductEntity.getStatus(),
                 date_received: ProductEntity.getDateReceived(),
                 date_expire: ProductEntity.getDateExpire(),
-                delivery_id: ProductEntity.getDeliveryId()
+                delivery_id: ProductEntity.getDeliveryId(),
+                img: ProductEntity.getImg()
             }).then(res => rowCount++)
                 .catch(err => console.log(err));
 

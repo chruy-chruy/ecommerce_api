@@ -1,6 +1,6 @@
 const makeProductEntity = ({ product, checkArray, delivery_id }) => {
 
-    const { product_name, barcode, details, quantity, price, cost, date_received, date_expire } = product;
+    const { product_name, barcode, details, quantity, price, cost, date_received, date_expire, img } = product;
     const status = "active"
     // console.log(data);
 
@@ -32,6 +32,10 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
     if (!date_expire) {
         throw new Error("date_expire is required at product array " + checkArray);
     }
+    if (!img) {
+        throw new Error("image is required at product array " + checkArray);
+    }
+
 
 
 
@@ -45,7 +49,8 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
         getDateReceived: () => date_received,
         getCost: () => cost,
         getDateExpire: () => date_expire,
-        getDeliveryId: () => delivery_id
+        getDeliveryId: () => delivery_id,
+        getImg: () => img
     })
 
 }

@@ -8,11 +8,11 @@ const query = () => {
     })
 }
 
-async function createProduct({ product_name, barcode, details, quantity, price, cost, status, date_received, date_expire, delivery_id }) {
+async function createProduct({ product_name, barcode, details, quantity, price, cost, status, date_received, date_expire, delivery_id, img }) {
     const db = await connect()
-    const values = [product_name, barcode, details, quantity, price, cost, status, date_received, date_expire, delivery_id]
-    const sql = `INSERT INTO product(product_name, barcode, details, quantity, price, cost_per_unit, status, date_received, date_expire,delivery_id)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`
+    const values = [product_name, barcode, details, quantity, price, cost, status, date_received, date_expire, delivery_id, img]
+    const sql = `INSERT INTO product(product_name, barcode, details, quantity, price, cost_per_unit, status, date_received, date_expire,delivery_id, img)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`
     try {
         const result = await db.query(sql, values)
         return result
