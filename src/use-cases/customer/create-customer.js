@@ -25,7 +25,7 @@ const UC_createCustomer = ({ customerDb, makeCustomerEntity }) => {
             .catch(err => console.log(err));
 
         if (res) {
-            return "Customer Created Successfuly"
+            return "Customer Created Successfully"
         }
         else {
             throw new Error("Failed to register user.");
