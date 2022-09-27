@@ -14,6 +14,7 @@ const deliveryRoute = require("./route/delivery");
 const product_deliveryRoute = require("./route/product&delivery");
 const orderRoute = require("./route/order");
 const cartRoute = require("./route/cart");
+const logRoute = require("./route/logs");
 
 app.use("/api/user", userRoute);
 app.use("/api/customer", customerRoute);
@@ -23,5 +24,6 @@ app.use("/api/delivery", deliveryRoute);
 app.use("/api/product-delivery", product_deliveryRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/logs", logRoute);
 
 module.exports = app
