@@ -11,8 +11,12 @@ const UC_createOrder = ({ OrderDb, makeOrderEntity }) => {
         // }
 
         const res = await OrderDb.createOrder({
-            customer_name: OrderEntity.getCustomerName(),
+            customer_id: OrderEntity.getCustomerId(),
             total_price: OrderEntity.getTotalPrice(),
+            address: OrderEntity.getAddress(),
+            approved_by: OrderEntity.getApprovedBy(),
+            shipping_type: OrderEntity.getShippingType(),
+            order_status: OrderEntity.getOrderStatus(),
             status: OrderEntity.getStatus(),
         })
             .catch(err => console.log(err));

@@ -33,7 +33,7 @@ async function getCustomerCart({ Id }) {
     i.date_expire as "product_date_expire"
     FROM cart o
     INNER JOIN product i
-    ON o.product_id = i.product_id	WHERE o.customer_id = $1 AND status = $2`
+    ON o.product_id = i.product_id	WHERE o.customer_id = $1 AND o.status = $2`
     try {
         const result = await db.query(sql, values)
         return result

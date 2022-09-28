@@ -1,4 +1,4 @@
-const CON_createOrder = ({ createOrder, createOrderDetails, createCustomer }) => {
+const CON_createOrder = ({ createOrder, createOrderDetails, createCustomer,getCustomerCart }) => {
     return async function get(httpRequest) {
         const headers = {
             "Content-Type": "application/json",
@@ -12,22 +12,15 @@ const CON_createOrder = ({ createOrder, createOrderDetails, createCustomer }) =>
             //process create delivery first to get delivery_id
             const order = await createOrder(Info.order)
 
+            // const cart = await getCustomerCart({id : Info.cart.cart_id})
+            // console.log (cart)
             //pass product details to createProduct with delivery_id
             const order_details = {
                 order_id: order.order_id,
                 order_details: Info.order_details
             }
-            //process create products
+            // //process create products
             const orderDetails = await createOrderDetails(order_details)
-
-            //pass customer details to createProduct with delivery_id
-            const customer = {
-                order_id: order.order_id,
-                customer: Info.customer
-            }
-
-            //process add customer
-            const addcustomer = await createCustomer(customer)
 
             const result = {
                 headers: {
@@ -37,7 +30,6 @@ const CON_createOrder = ({ createOrder, createOrderDetails, createCustomer }) =>
                 body: {
                     order: order.message,
                     order_details: orderDetails,
-                    customer: addcustomer
                 }
 
             };

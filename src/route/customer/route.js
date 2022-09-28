@@ -3,7 +3,8 @@ const {
     create_customer,
     get_customer,
     get_single_customer,
-    update_customer
+    update_customer,
+    login_customer
 } = require('../../controllers/customer/index')
 
 
@@ -13,7 +14,7 @@ const customerRouter = ({ router, makeExpressCallback }) => {
     router.get("/:id", makeExpressCallback(get_single_customer))
     router.patch("/:id", makeExpressCallback(update_customer))
     // router.delete("/delete/:id", verifyToken, makeExpressCallback(deleteUserController))
-    // router.post("/login", makeExpressCallback(login))
+    router.post("/login", makeExpressCallback(login_customer))
 
     return router
 }

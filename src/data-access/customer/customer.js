@@ -7,7 +7,8 @@ const query = () => {
         getCustomer,
         isExisting,
         getSingleCustomer,
-        updateCustomer
+        updateCustomer,
+        loginCustomer
     })
 }
 
@@ -72,6 +73,18 @@ async function updateCustomer({ password, first_name, last_name, contact, addres
                 WHERE customer_id = $6`;
     try {
         const result = await db.query(sql, params)
+        return result
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+}
+
+async function loginCustomer({ username, password }) {
+    const db = await connect()
+    const data = [username, password]
+    try {
+        const sql = `SELECT * FROM customer where username = $1 AND password = $2 AND status = 'active'`;
+        const result = await db.query(sql, data)
         return result
     } catch (error) {
         console.log("Error: ", error);

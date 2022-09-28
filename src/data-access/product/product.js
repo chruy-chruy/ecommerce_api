@@ -5,6 +5,7 @@ const query = () => {
     return Object.freeze({
         createProduct,
         getProduct,
+        updateProduct
     })
 }
 
@@ -31,6 +32,52 @@ async function getProduct() {
     } catch (error) {
         console.log(error)
         return (error)
+    }
+}
+
+async function updateProduct({ 
+    product_name, 
+    barcode, 
+    details, 
+    quantity, 
+    price, 
+    status,
+    date_received,
+    cost,
+    date_expire,
+    img,
+    product_id
+}) {
+    const db = await connect()
+    const params = [
+        product_name, 
+        barcode, 
+        details, 
+        quantity, 
+        price, 
+        status,
+        date_received,
+        cost,
+        date_expire,
+        img,
+        product_id]
+    const sql = `UPDATE product SET 
+    product_name = $1,
+    barcode = $2,
+    details = $3,
+    quantity = $4,
+    price = $5,
+    status = $6,
+    date_received = $7,
+    cost_per_unit = $8,
+    date_expire = $9,
+    img = $10
+    WHERE product_id = $11`;
+    try {
+        const result = await db.query(sql, params)
+        return result
+    } catch (error) {
+        console.log("Error: ", error);
     }
 }
 

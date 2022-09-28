@@ -1,12 +1,15 @@
 const makeOrderDetailsEntity = ({ orders, checkArray, order_id }) => {
 
-    const { barcode, product_name, quantity, price, total_price } = orders;
+    const { barcode, product_name, quantity, price, total_price, cart_id, product_id } = orders;
     const status = "active"
     // console.log(data);
 
 
     if (!order_id) {
         throw new Error("order_id is required at products array " + checkArray);
+    }
+    if (!cart_id) {
+        throw new Error("cart_id is required at products array " + checkArray);
     }
     if (!barcode) {
         throw new Error("barcode is required at productsarray " + checkArray);
@@ -23,7 +26,9 @@ const makeOrderDetailsEntity = ({ orders, checkArray, order_id }) => {
     if (!total_price) {
         throw new Error("total_price is required at product array " + checkArray);
     }
-
+    if (!product_id) {
+        throw new Error("product_id is required at product array " + checkArray);
+    }
 
 
 
@@ -35,6 +40,8 @@ const makeOrderDetailsEntity = ({ orders, checkArray, order_id }) => {
         getStatus: () => status,
         getOrder_id: () => order_id,
         getTotalPrice: () => total_price,
+        getCartId: () => cart_id,
+        getProductId: () => product_id
 
     })
 
