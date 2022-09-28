@@ -30,7 +30,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.trigger_set_timestamp() OWNER TO postgres;
+ALTER FUNCTION public.trigger_set_timestamp() OWNER TO bfifarms;
 
 SET default_tablespace = '';
 
@@ -471,103 +471,69 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: cart; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.cart (cart_id, customer_id, product_id, quantity, created_at, status) FROM stdin;
-2	17	248	5	2022-09-23 15:41:57.609164	done
-4	17	249	3	2022-09-28 09:56:24.7671	done
-3	18	249	3	2022-09-28 09:56:08.897082	active
-\.
+
 
 
 --
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customer_id, contact, address, created_at, status, username, password, first_name, last_name) FROM stdin;
-18	9269883740	Baluan General Santos City	2022-09-22 10:54:04.139736	active	troy1234	Troy1116	Troy Michael	Garidos
-17	951423555	Baluan General Santos City	2022-09-22 10:48:49.685916	active	troy123	Troy1116	Troy Michael	Garidos
-\.
+
 
 
 --
 -- Data for Name: customer_logs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer_logs (log_id, action_made, customer_id, created_at, status) FROM stdin;
-1	test action by customer	1	2022-09-27 11:44:37.87922	active
-\.
+
 
 
 --
 -- Data for Name: delivery; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.delivery (delivery_id, supplier_name, date_received, created_at, status) FROM stdin;
-32	troy	2022-09-12	2022-09-23 09:25:10.806961	active
-33	laray	2022-09-12	2022-09-23 09:29:51.936561	active
-34	troy	2022-09-12	2022-09-23 09:30:40.608185	active
-\.
+
 
 
 --
 -- Data for Name: order_details; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.order_details (order_details_id, order_id, barcode, product_name, quantity, price, created_at, status, total_price) FROM stdin;
-67	30	123223	mango	5	5	2022-09-28 14:32:26.586726	active	25
-68	30	1232223	Banana	3	20	2022-09-28 14:32:26.591656	active	60
-\.
+
 
 
 --
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.orders (order_id, customer_id, total_price, address, approved_by, shipping_type, order_status, created_at, approved_at, status) FROM stdin;
-30	18	1000	12312	\N	pick-up	\N	2022-09-28 14:32:26.57481	\N	active
-\.
+
 
 
 --
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.product (product_id, product_name, barcode, details, quantity, price, status, created_at, cost_per_unit, date_received, date_expire, delivery_id, img) FROM stdin;
-246	intel i3 	i3123123	i3 9100f	20	1000	active	2022-09-23 09:25:10.812785	900	2022-09-12	2022-09-25	32	\N
-250	intel i3 	i3123123	i3 9100f	20	1000	active	2022-09-23 09:30:40.612659	900	2022-09-12	2022-09-25	34	sample.png
-251	ryzen 5	123213we	ryzen 5 2600	20	1000	active	2022-09-23 09:30:40.614159	900	2023-09-12	2023-09-25	34	sample.png
-247	ryzen 5	123213we	ryzen 5 2600	21	1000	active	2022-09-23 09:25:10.81552	900	2023-09-12	2023-09-25	32	\N
-249	Banana	1232223	vanananana	97	1000	active	2022-09-23 09:29:51.946328	20	2023-09-12	2023-09-25	33	sample.png
-248	carabao mango	123223	native mango	100	500	active	2022-09-23 09:29:51.94337	5	2022-09-28	2022-11-16	33	test.img
-\.
+
 
 
 --
 -- Data for Name: supplier; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.supplier (supplier_id, supplier_name, address, contact, created_at, status) FROM stdin;
-\.
+
 
 
 --
 -- Data for Name: user_logs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.user_logs (log_id, action_made, user_id, created_at, status) FROM stdin;
-1	test action by asldkam0	67	2022-09-26 14:23:59.425117	active
-2	test action by customer	\N	2022-09-26 14:27:26.55516	active
-3	test action by customer	1	2022-09-27 10:47:13.345329	active
-4	test action by customer	12	2022-09-27 13:36:15.589652	active
-\.
+
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, username, password, status, date_created, updated_at, first_name, last_name, role) FROM stdin;
-67	admin	admin123	active	2022-09-22 17:15:41.027047	2022-09-22 17:19:50.387136	troy	garidos	Admin
-\.
 
 
 --
@@ -698,7 +664,7 @@ ALTER TABLE ONLY public.supplier
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: bfifarms
 --
 
 ALTER TABLE ONLY public.users
