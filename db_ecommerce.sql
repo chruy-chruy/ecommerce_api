@@ -37,21 +37,96 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: cart; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cart (
+    cart_id bigint NOT NULL,
+    customer_id bigint,
+    product_id bigint,
+    quantity integer,
+    created_at timestamp without time zone DEFAULT now(),
+    status character varying(100)
+);
+
+
+ALTER TABLE public.cart OWNER TO postgres;
+
+--
+-- Name: cart_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cart_cart_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cart_cart_id_seq OWNER TO postgres;
+
+--
+-- Name: cart_cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cart_cart_id_seq OWNED BY public.cart.cart_id;
+
+
+--
 -- Name: customer; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.customer (
     customer_id bigint NOT NULL,
-    name character varying(255),
     contact bigint,
     address character varying(255),
     created_at timestamp without time zone DEFAULT now(),
     status character varying(100),
-    order_id bigint
+    username character varying(255),
+    password character varying(255),
+    first_name character varying(255),
+    last_name character varying(255)
 );
 
 
 ALTER TABLE public.customer OWNER TO postgres;
+
+--
+-- Name: customer_logs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.customer_logs (
+    log_id bigint NOT NULL,
+    action_made character varying(255),
+    customer_id bigint,
+    created_at timestamp without time zone DEFAULT now(),
+    status character varying(100)
+);
+
+
+ALTER TABLE public.customer_logs OWNER TO postgres;
+
+--
+-- Name: customer_logs_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.customer_logs_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.customer_logs_log_id_seq OWNER TO postgres;
+
+--
+-- Name: customer_logs_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.customer_logs_log_id_seq OWNED BY public.customer_logs.log_id;
+
 
 --
 -- Name: delivery; Type: TABLE; Schema: public; Owner: postgres
@@ -87,6 +162,42 @@ ALTER TABLE public.delivery_delivery_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.delivery_delivery_id_seq OWNED BY public.delivery.delivery_id;
+
+
+--
+-- Name: user_logs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_logs (
+    log_id bigint NOT NULL,
+    action_made character varying(255),
+    user_id integer,
+    created_at timestamp without time zone DEFAULT now(),
+    status character varying(100)
+);
+
+
+ALTER TABLE public.user_logs OWNER TO postgres;
+
+--
+-- Name: logs_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.logs_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.logs_log_id_seq OWNER TO postgres;
+
+--
+-- Name: logs_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.logs_log_id_seq OWNED BY public.user_logs.log_id;
 
 
 --
@@ -135,20 +246,25 @@ ALTER SEQUENCE public.order_details_order_details_id_seq OWNED BY public.order_d
 
 CREATE TABLE public.orders (
     order_id bigint NOT NULL,
+    customer_id bigint,
     total_price double precision,
+    address character varying(255),
+    approved_by character varying(255),
+    shipping_type character varying(100),
+    order_status character varying(100),
     created_at timestamp without time zone DEFAULT now(),
-    status character varying(100),
-    customer_name character varying
+    approved_at date,
+    status character varying(100)
 );
 
 
 ALTER TABLE public.orders OWNER TO postgres;
 
 --
--- Name: order_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.order_order_id_seq
+CREATE SEQUENCE public.orders_order_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -156,13 +272,13 @@ CREATE SEQUENCE public.order_order_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.order_order_id_seq OWNER TO postgres;
+ALTER TABLE public.orders_order_id_seq OWNER TO postgres;
 
 --
--- Name: order_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.order_order_id_seq OWNED BY public.orders.order_id;
+ALTER SEQUENCE public.orders_order_id_seq OWNED BY public.orders.order_id;
 
 
 --
@@ -181,7 +297,8 @@ CREATE TABLE public.product (
     cost_per_unit double precision,
     date_received date,
     date_expire date,
-    delivery_id integer
+    delivery_id integer,
+    img character varying(100)
 );
 
 
@@ -288,10 +405,24 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: cart cart_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart ALTER COLUMN cart_id SET DEFAULT nextval('public.cart_cart_id_seq'::regclass);
+
+
+--
 -- Name: customer customer_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.customer ALTER COLUMN customer_id SET DEFAULT nextval('public.subjects_id_seq'::regclass);
+
+
+--
+-- Name: customer_logs log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer_logs ALTER COLUMN log_id SET DEFAULT nextval('public.customer_logs_log_id_seq'::regclass);
 
 
 --
@@ -312,7 +443,7 @@ ALTER TABLE ONLY public.order_details ALTER COLUMN order_details_id SET DEFAULT 
 -- Name: orders order_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.orders ALTER COLUMN order_id SET DEFAULT nextval('public.order_order_id_seq'::regclass);
+ALTER TABLE ONLY public.orders ALTER COLUMN order_id SET DEFAULT nextval('public.orders_order_id_seq'::regclass);
 
 
 --
@@ -323,6 +454,13 @@ ALTER TABLE ONLY public.product ALTER COLUMN product_id SET DEFAULT nextval('pub
 
 
 --
+-- Name: user_logs log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_logs ALTER COLUMN log_id SET DEFAULT nextval('public.logs_log_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -330,16 +468,32 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: cart; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cart (cart_id, customer_id, product_id, quantity, created_at, status) FROM stdin;
+2	17	248	5	2022-09-23 15:41:57.609164	done
+4	17	249	3	2022-09-28 09:56:24.7671	done
+3	18	249	3	2022-09-28 09:56:08.897082	active
+\.
+
+
+--
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customer (customer_id, name, contact, address, created_at, status, order_id) FROM stdin;
-14	troy	9269824521	Baluan General Santos City2	2022-09-14 14:36:39.879349	active	\N
-15	troy	9269824521	Baluan General Santos City2	2022-09-14 14:38:49.949439	active	41
-16	troy	9269824521	Baluan General Santos City2	2022-09-14 14:42:04.880359	active	42
-17	troy2	9269824521	Baluan General Santos City2	2022-09-14 15:32:54.787643	active	43
-18	troy	9269824521	Baluan General Santos City2	2022-09-14 15:42:49.510079	active	44
-19	troy	9269824521	Baluan General Santos City2	2022-09-14 17:43:27.832679	active	45
+COPY public.customer (customer_id, contact, address, created_at, status, username, password, first_name, last_name) FROM stdin;
+18	9269883740	Baluan General Santos City	2022-09-22 10:54:04.139736	active	troy1234	Troy1116	Troy Michael	Garidos
+17	951423555	Baluan General Santos City	2022-09-22 10:48:49.685916	active	troy123	Troy1116	Troy Michael	Garidos
+\.
+
+
+--
+-- Data for Name: customer_logs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.customer_logs (log_id, action_made, customer_id, created_at, status) FROM stdin;
+1	test action by customer	1	2022-09-27 11:44:37.87922	active
 \.
 
 
@@ -348,7 +502,9 @@ COPY public.customer (customer_id, name, contact, address, created_at, status, o
 --
 
 COPY public.delivery (delivery_id, supplier_name, date_received, created_at, status) FROM stdin;
-31	wew	2022-09-12	2022-09-13 10:08:34.652801	active
+32	troy	2022-09-12	2022-09-23 09:25:10.806961	active
+33	laray	2022-09-12	2022-09-23 09:29:51.936561	active
+34	troy	2022-09-12	2022-09-23 09:30:40.608185	active
 \.
 
 
@@ -357,18 +513,8 @@ COPY public.delivery (delivery_id, supplier_name, date_received, created_at, sta
 --
 
 COPY public.order_details (order_details_id, order_id, barcode, product_name, quantity, price, created_at, status, total_price) FROM stdin;
-29	40	i3123123	intel i3 	20	1000	2022-09-14 14:36:39.87772	active	20000
-30	40	i3123123	intel i5 	20	1000	2022-09-14 14:36:39.878877	active	20000
-31	41	i3123123	intel i3 	20	1000	2022-09-14 14:38:49.94508	active	20000
-32	41	i3123123	intel i5 	20	1000	2022-09-14 14:38:49.948658	active	20000
-33	42	i3123123	intel i3 	20	1000	2022-09-14 14:42:04.876591	active	20000
-34	42	i3123123	intel i5 	20	1000	2022-09-14 14:42:04.879645	active	20000
-35	43	i3123123	intel i3 	20	1000	2022-09-14 15:32:54.785638	active	20000
-36	43	i3123123	intel i5 	20	1000	2022-09-14 15:32:54.786932	active	20000
-37	44	i3123123	intel i3 	20	1000	2022-09-14 15:42:49.507991	active	20000
-38	44	i3123123	intel i5 	20	1000	2022-09-14 15:42:49.509381	active	20000
-39	45	i3123123	intel i3 	20	1000	2022-09-14 17:43:27.829011	active	20000
-40	45	i3123123	intel i5 	20	1000	2022-09-14 17:43:27.83217	active	20000
+67	30	123223	mango	5	5	2022-09-28 14:32:26.586726	active	25
+68	30	1232223	Banana	3	20	2022-09-28 14:32:26.591656	active	60
 \.
 
 
@@ -376,13 +522,8 @@ COPY public.order_details (order_details_id, order_id, barcode, product_name, qu
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.orders (order_id, total_price, created_at, status, customer_name) FROM stdin;
-40	10000	2022-09-14 14:36:39.873531	active	troy
-41	10000	2022-09-14 14:38:49.93752	active	troy
-42	10000	2022-09-14 14:42:04.869262	active	troy
-43	10000	2022-09-14 15:32:54.780457	active	troy2
-44	10000	2022-09-14 15:42:49.502398	active	troy
-45	10000	2022-09-14 17:43:27.824256	active	troy
+COPY public.orders (order_id, customer_id, total_price, address, approved_by, shipping_type, order_status, created_at, approved_at, status) FROM stdin;
+30	18	1000	12312	\N	pick-up	\N	2022-09-28 14:32:26.57481	\N	active
 \.
 
 
@@ -390,9 +531,13 @@ COPY public.orders (order_id, total_price, created_at, status, customer_name) FR
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.product (product_id, product_name, barcode, details, quantity, price, status, created_at, cost_per_unit, date_received, date_expire, delivery_id) FROM stdin;
-244	intel i3 	i3123123	i3 9100f	20	1000	active	2022-09-13 10:08:34.658253	900	2022-09-12	2022-09-25	31
-245	ryzen 5	123213we	ryzen 5 2600	20	1000	active	2022-09-13 10:08:34.660591	900	2023-09-12	2023-09-25	31
+COPY public.product (product_id, product_name, barcode, details, quantity, price, status, created_at, cost_per_unit, date_received, date_expire, delivery_id, img) FROM stdin;
+246	intel i3 	i3123123	i3 9100f	20	1000	active	2022-09-23 09:25:10.812785	900	2022-09-12	2022-09-25	32	\N
+250	intel i3 	i3123123	i3 9100f	20	1000	active	2022-09-23 09:30:40.612659	900	2022-09-12	2022-09-25	34	sample.png
+251	ryzen 5	123213we	ryzen 5 2600	20	1000	active	2022-09-23 09:30:40.614159	900	2023-09-12	2023-09-25	34	sample.png
+247	ryzen 5	123213we	ryzen 5 2600	21	1000	active	2022-09-23 09:25:10.81552	900	2023-09-12	2023-09-25	32	\N
+249	Banana	1232223	vanananana	97	1000	active	2022-09-23 09:29:51.946328	20	2023-09-12	2023-09-25	33	sample.png
+248	carabao mango	123223	native mango	100	500	active	2022-09-23 09:29:51.94337	5	2022-09-28	2022-11-16	33	test.img
 \.
 
 
@@ -401,10 +546,18 @@ COPY public.product (product_id, product_name, barcode, details, quantity, price
 --
 
 COPY public.supplier (supplier_id, supplier_name, address, contact, created_at, status) FROM stdin;
-6	troy	baluan	9123452871	2022-09-07 15:47:21.713031	active
-7	troy	baluan	9123452871	2022-09-07 15:47:40.591906	active
-11	troy shop	baluan General Santos City	91234548234	2022-09-08 09:57:38.279043	active
-12	troy shop	baluan General Santos City	91234548234	2022-09-13 10:56:57.533094	active
+\.
+
+
+--
+-- Data for Name: user_logs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_logs (log_id, action_made, user_id, created_at, status) FROM stdin;
+1	test action by asldkam0	67	2022-09-26 14:23:59.425117	active
+2	test action by customer	\N	2022-09-26 14:27:26.55516	active
+3	test action by customer	1	2022-09-27 10:47:13.345329	active
+4	test action by customer	12	2022-09-27 13:36:15.589652	active
 \.
 
 
@@ -413,64 +566,111 @@ COPY public.supplier (supplier_id, supplier_name, address, contact, created_at, 
 --
 
 COPY public.users (id, username, password, status, date_created, updated_at, first_name, last_name, role) FROM stdin;
-52	admin	admin	active	2022-09-02 15:22:51.977637	\N	\N	\N	\N
-54	troy2	1234	active	2022-09-02 15:26:58.37791	\N	\N	\N	\N
-56	troy1232	1234	active	2022-09-02 15:43:32.02235	\N	\N	\N	\N
-57	qeww	qwewq	active	2022-09-02 15:43:41.17673	\N	\N	\N	\N
-58	qweqweqw	qwewq	active	2022-09-05 16:38:23.472535	\N	\N	\N	\N
-59	merry	merry123	active	2022-09-06 13:20:33.506591	\N	\N	\N	\N
-60	thel	thel123	active	2022-09-06 16:44:21.682458	\N	ethel	mahusay	Sales
-61	x	x123	active	2022-09-06 17:11:37.746568	\N	rex	qwe	Sales
-62	test	123	active	2022-09-07 17:21:07.122542	\N	test	qwwwe	Sales
-63	jii	123	active	2022-09-07 17:40:02.938902	\N	jii	guiapal	Staff
-55	troy23	admin123	deleted	2022-09-02 15:28:26.968659	2022-09-07 17:41:03.845828	\N	\N	\N
-53	admin	admin123	active	2022-09-02 15:25:34.483515	2022-09-14 11:03:32.017804	troy	garidos	Admin
-64	asd	123	active	2022-09-14 13:51:11.990443	\N	jii	guiapal	Staff
-65	xzcz	123	active	2022-09-14 13:52:52.844965	\N	jii	guiapal	Staff
-66	sczxcz	123	active	2022-09-14 13:53:22.516088	\N	jii	guiapal	Staff
+67	admin	admin123	active	2022-09-22 17:15:41.027047	2022-09-22 17:19:50.387136	troy	garidos	Admin
 \.
+
+
+--
+-- Name: cart_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cart_cart_id_seq', 4, true);
+
+
+--
+-- Name: customer_logs_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.customer_logs_log_id_seq', 1, true);
 
 
 --
 -- Name: delivery_delivery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.delivery_delivery_id_seq', 31, true);
+SELECT pg_catalog.setval('public.delivery_delivery_id_seq', 34, true);
+
+
+--
+-- Name: logs_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.logs_log_id_seq', 4, true);
 
 
 --
 -- Name: order_details_order_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_details_order_details_id_seq', 40, true);
+SELECT pg_catalog.setval('public.order_details_order_details_id_seq', 68, true);
 
 
 --
--- Name: order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_order_id_seq', 45, true);
+SELECT pg_catalog.setval('public.orders_order_id_seq', 30, true);
 
 
 --
 -- Name: product_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_product_id_seq', 245, true);
+SELECT pg_catalog.setval('public.product_product_id_seq', 251, true);
 
 
 --
 -- Name: subjects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subjects_id_seq', 19, true);
+SELECT pg_catalog.setval('public.subjects_id_seq', 18, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 66, true);
+SELECT pg_catalog.setval('public.users_id_seq', 67, true);
+
+
+--
+-- Name: cart cart_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cart
+    ADD CONSTRAINT cart_pkey PRIMARY KEY (cart_id);
+
+
+--
+-- Name: customer_logs customer_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer_logs
+    ADD CONSTRAINT customer_logs_pkey PRIMARY KEY (log_id);
+
+
+--
+-- Name: user_logs logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_logs
+    ADD CONSTRAINT logs_pkey PRIMARY KEY (log_id);
+
+
+--
+-- Name: order_details order_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_details
+    ADD CONSTRAINT order_details_pkey PRIMARY KEY (order_details_id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (order_id);
 
 
 --
