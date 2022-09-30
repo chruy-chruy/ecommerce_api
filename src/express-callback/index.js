@@ -1,5 +1,6 @@
 module.exports = function makeExpressCallback(controller) {
     return (req, res) => {
+        // console.log("Express callback: ", req)
         const httpRequest = {
             body: req.body,
             query: req.query,
@@ -7,6 +8,7 @@ module.exports = function makeExpressCallback(controller) {
             ip: req.ip,
             method: req.method,
             path: req.path,
+            file: (req.file) ? req.file : req.files,
             headers: {
                 "Content-Type": req.get("Content-Type"),
                 Referer: req.get("referer"),

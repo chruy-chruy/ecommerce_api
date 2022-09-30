@@ -2,17 +2,16 @@ const UC_createProduct = ({ productDb, makeProductEntity }) => {
     return async function createProduct(data) {
         let rowCount = 0
         let checkArray = 0
-        const { products, delivery_id } = data
-
+        const { product_json, delivery_id } = data
 
         //check all the enities per product array
-        for (const product of products) {
+        for (const product of product_json) {
             checkArray++
             ProductEntity = await makeProductEntity({ product, checkArray, delivery_id })
         }
 
         //insert into database per product array
-        for (const product of products) {
+        for (const product of product_json) {
             ProductEntity = await makeProductEntity({ product, delivery_id })
             // const { name } = data; //check if existing username
             // const isExisting = await customerDb.isExisting({ username })
@@ -20,7 +19,8 @@ const UC_createProduct = ({ productDb, makeProductEntity }) => {
 
             // if (isExisting.rowCount > 0) {
             //     throw new Error("User already exists")
-            // }   
+            // }
+        //    product["pr"]
 
             await productDb.createProduct({
                 product_name: ProductEntity.getProductName(),
@@ -44,7 +44,7 @@ const UC_createProduct = ({ productDb, makeProductEntity }) => {
         }
 
         return rowCount + " products added Succesfully"
-
+        
 
     }
 }

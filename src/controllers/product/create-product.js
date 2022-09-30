@@ -8,9 +8,9 @@ const CON_createProduct = ({ createProduct }) => {
             const { source = {}, ...ProductInfo } = httpRequest.body;
             source.ip = httpRequest.ip;
             source.browser = httpRequest.headers["User-agent"];
-
+            // console.log(ProductInfo);
             const body = await createProduct(ProductInfo)
-
+// console.log(ProductInfo);
             const result = {
                 headers: {
                     "Content-Type": "application/json"

@@ -6,9 +6,9 @@ const {
 } = require('../../controllers/product/index')
 
 
-const productRouter = ({ router, makeExpressCallback }) => {
+const productRouter = ({ router,upload, makeExpressCallback }) => {
     router.get("/", makeExpressCallback(get_product))
-    router.post("/", makeExpressCallback(create_product))
+    router.post("/",upload, makeExpressCallback(create_product))
     // router.get("/:id", verifyToken, makeExpressCallback(fetchSingleUser))
     router.patch("/:id", makeExpressCallback(update_product))
     // router.delete("/delete/:id", verifyToken, makeExpressCallback(deleteUserController))
