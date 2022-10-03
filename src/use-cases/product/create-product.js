@@ -38,7 +38,7 @@ const UC_createProduct = ({ productDb, makeProductEntity }) => {
                 .catch(err => console.log(err));
 
         }
-
+        
         if (rowCount == 0) {
             throw new Error("Failed to register product at Database.");
         }

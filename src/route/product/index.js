@@ -4,8 +4,7 @@ const makeExpressCallback = require('../../express-callback/index')
 
 const productRouter = require('./route')
 const verifyToken = require('../../middleware/jwt/verifyToken');
-const uploadAlbum = require("../../middleware/multer/upload-image");
-const upload = uploadAlbum.upload
+const {upload} = require("../../middleware/multer/upload-image");
 
 
 const router = express.Router();

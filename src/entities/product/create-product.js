@@ -12,7 +12,7 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
         throw new Error("delivery_id is required at product array " + checkArray);
     }
     if (!barcode) {
-        throw new Error("barcode is required at productsarray " + checkArray);
+        throw new Error("barcode is required at product array " + checkArray);
     }
     if (!details) {
         throw new Error("details is required at product array " + checkArray);

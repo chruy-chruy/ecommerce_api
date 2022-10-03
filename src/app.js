@@ -2,15 +2,11 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const cors = require('cors')
-const multer = require('multer');
-const uploads = multer();
 
 app.use(cors());
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true })); 
-// app.use(uploads.array()); 
-app.use('/images',express.static('src/img'))
 
 
 
@@ -33,6 +29,9 @@ app.use("/api/product-delivery", product_deliveryRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/logs", logRoute);
+
+app.use('/api/images',express.static('src/img'))
+
 
 
 

@@ -27,16 +27,16 @@ async function createCart({ customer_id, product_id, quantity, status }) {
 async function getCustomerCart({ Id }) {
     const db = await connect()
     const values = [Id.id, "active"]
-    const sql = `SELECT o.cart_id,o.created_at,o.customer_id,o.product_id,o.quantity,o.status,o.quantity*i.cost_per_unit as "total_price",i.product_id,i.product_name,
-    i.barcode as "product_barcode", i.details as "product_details", i.quantity as "product_quantity",
-    i.img as "product_img", i.quantity as "product_qauntity", i.cost_per_unit as "product_cost_per_unit",
-    i.date_expire as "product_date_expire"
-    FROM cart o
-    INNER JOIN product i
-    ON o.product_id = i.product_id	WHERE o.customer_id = $1 AND o.status = $2`
+    const sql = `SELECT c.cart_id,c.created_at,c.customer_id,c.product_id,c.quantity,c.status,c.quantity*p.cost_per_unit as "total_price",p.product_id,p.product_name,
+    p.barcode as "product_barcode", p.details as "product_details", p.quantity as "product_quantity",
+    p.img as "product_img", p.quantity as "product_qauntity", p.cost_per_unit as "product_cost_per_unit",
+    p.date_expire as "product_date_expire"
+    FROM cart c
+    INNER JOIN product p
+    ON c.product_id = p.product_id	WHERE c.customer_id = $1 AND c.status = $2`
     try {
         const result = await db.query(sql, values)
-        return result
+        return result.rows
     } catch (error) {
         console.log(error.message)
     }

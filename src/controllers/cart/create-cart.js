@@ -9,7 +9,7 @@ const CON_createCart = ({ createCart }) => {
             source.ip = httpRequest.ip;
             source.browser = httpRequest.headers["User-agent"];
 
-            const res = await createCart(data)
+            const message = await createCart(data)
 
 
             const result = {
@@ -18,7 +18,7 @@ const CON_createCart = ({ createCart }) => {
                 },
                 statusCode: 200,
                 body: {
-                    message: res,
+                    message: message,
                 }
             };
             console.log(result.body);
