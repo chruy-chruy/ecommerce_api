@@ -1,9 +1,9 @@
 const userDb = require('../../data-access/user/index')
 
 const {
-    makeUserEntity,
-    updateUserEntity,
-    loginUserEntity
+  makeUserEntity,
+  updateUserEntity,
+  loginUserEntity,
 } = require('../../entities/user/index')
 
 const generateToken = require('../../middleware/jwt/signToken')
@@ -23,20 +23,20 @@ const loginUser = UC_loginUser({ userDb, loginUserEntity, generateToken })
 const deleteUser = UC_deleteUser({ userDb })
 
 const userService = Object.freeze({
-    getUsers,
-    createUser,
-    getSingleUser,
-    updateUser,
-    deleteUser,
-    loginUser
+  getUsers,
+  createUser,
+  getSingleUser,
+  updateUser,
+  deleteUser,
+  loginUser,
 })
 
 module.exports = userService
 module.exports = {
-    getUsers,
-    createUser,
-    getSingleUser,
-    updateUser,
-    deleteUser,
-    loginUser
+  getUsers,
+  createUser,
+  getSingleUser,
+  updateUser,
+  deleteUser,
+  loginUser,
 }

@@ -1,3 +1,6 @@
 {
-    "vscode-pets.petColor": "white"
+    "vscode-pets.petColor": "white",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
 }
+

@@ -2,10 +2,9 @@ const cartDb = require('../../data-access/cart/index')
 const generateToken = require('../../middleware/jwt/signToken')
 
 const {
-    makeCartEntity,
-    updateCartEntity
+  makeCartEntity,
+  updateCartEntity,
 } = require('../../entities/cart/index')
-
 
 const UC_updateCart = require('./update-cart')
 const UC_createCart = require('./create-cart')
@@ -18,20 +17,16 @@ const removeCart = UC_removeCart({ cartDb })
 const updateCart = UC_updateCart({ cartDb, updateCartEntity })
 
 const CartService = Object.freeze({
-    createCart,
-    getCustomerCart,
-    removeCart,
-    updateCart
+  createCart,
+  getCustomerCart,
+  removeCart,
+  updateCart,
 })
 
 module.exports = CartService
 module.exports = {
-    createCart,
-    getCustomerCart,
-    removeCart,
-    updateCart
+  createCart,
+  getCustomerCart,
+  removeCart,
+  updateCart,
 }
-
-
-
-

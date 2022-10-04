@@ -1,13 +1,13 @@
-const makeProductEntity = require("./create-product");
+const makeProductEntity = require('./create-product')
 const updateProductEntity = require('./update-product')
 
 const ProductEntity = Object.freeze({
-    makeProductEntity,
-    updateProductEntity
+  makeProductEntity,
+  updateProductEntity,
 })
 
-module.exports = ProductEntity;
+module.exports = ProductEntity
 module.exports = {
-    makeProductEntity,
-    updateProductEntity
+  makeProductEntity,
+  updateProductEntity,
 }

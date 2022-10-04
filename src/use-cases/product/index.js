@@ -2,11 +2,9 @@ const productDb = require('../../data-access/product/index')
 const generateToken = require('../../middleware/jwt/signToken')
 
 const {
-    makeProductEntity,
-    updateProductEntity
+  makeProductEntity,
+  updateProductEntity,
 } = require('../../entities/product/index')
-
-
 
 const UC_createProduct = require('./create-product')
 const UC_getProduct = require('./get-all-product')
@@ -17,19 +15,14 @@ const getProduct = UC_getProduct({ productDb })
 const updateProduct = UC_updateProduct({ productDb, updateProductEntity })
 
 const productService = Object.freeze({
-    createProduct,
-    getProduct,
-    updateProduct
+  createProduct,
+  getProduct,
+  updateProduct,
 })
 
 module.exports = productService
 module.exports = {
-    createProduct,
-    getProduct,
-    updateProduct
-
+  createProduct,
+  getProduct,
+  updateProduct,
 }
-
-
-
-

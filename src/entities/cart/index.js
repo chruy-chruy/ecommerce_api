@@ -1,13 +1,13 @@
-const makeCartEntity = require("./create-cart");
-const updateCartEntity = require("./update-cart")
+const makeCartEntity = require('./create-cart')
+const updateCartEntity = require('./update-cart')
 
 const CartEntity = Object.freeze({
-    makeCartEntity,
-    updateCartEntity
+  makeCartEntity,
+  updateCartEntity,
 })
 
-module.exports = CartEntity;
+module.exports = CartEntity
 module.exports = {
-    makeCartEntity,
-    updateCartEntity
+  makeCartEntity,
+  updateCartEntity,
 }

@@ -1,14 +1,13 @@
-const makeOrderEntity = require("./create-order");
-const makeOrderDetailsEntity = require("./create-order_details");
+const makeOrderEntity = require('./create-order')
+const makeOrderDetailsEntity = require('./create-order_details')
 
 const OrderEntity = Object.freeze({
-    makeOrderEntity,
-    makeOrderDetailsEntity
+  makeOrderEntity,
+  makeOrderDetailsEntity,
 })
 
-module.exports = OrderEntity;
+module.exports = OrderEntity
 module.exports = {
-    makeOrderEntity,
-    makeOrderDetailsEntity
-
+  makeOrderEntity,
+  makeOrderDetailsEntity,
 }

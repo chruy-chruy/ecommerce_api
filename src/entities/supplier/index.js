@@ -1,13 +1,13 @@
-const makeSupplierEntity = require("./create-supplier");
-const updateSupplierEntity = require("./update-supplier")
+const makeSupplierEntity = require('./create-supplier')
+const updateSupplierEntity = require('./update-supplier')
 
 const SupplierEntity = Object.freeze({
-    makeSupplierEntity,
-    updateSupplierEntity
+  makeSupplierEntity,
+  updateSupplierEntity,
 })
 
-module.exports = SupplierEntity;
+module.exports = SupplierEntity
 module.exports = {
-    makeSupplierEntity,
-    updateSupplierEntity
+  makeSupplierEntity,
+  updateSupplierEntity,
 }

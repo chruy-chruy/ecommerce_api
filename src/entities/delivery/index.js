@@ -1,11 +1,10 @@
-const makeDeliveryEntity = require("./create-delivery");
-
+const makeDeliveryEntity = require('./create-delivery')
 
 const DeliveryEntity = Object.freeze({
-    makeDeliveryEntity
+  makeDeliveryEntity,
 })
 
-module.exports = DeliveryEntity;
+module.exports = DeliveryEntity
 module.exports = {
-    makeDeliveryEntity
+  makeDeliveryEntity,
 }
