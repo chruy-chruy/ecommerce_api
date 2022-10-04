@@ -5,16 +5,12 @@ const CON_createProductDelivery = ({ createProduct, createDelivery }) => {
         };
         try {
             //get the httprequest body
-            const data_request = httpRequest.body
             const { source = {}, ...Info } = httpRequest.body;
             source.ip = httpRequest.ip;
             source.browser = httpRequest.headers["User-agent"];
 
-            //don't remove, for monitoring
-            // console.log("Product request: ",product_name.products)
-        
             
-            //process create delivery trans first to get delivery_id
+            //process create delivery first to get delivery_id
             const delivery = await createDelivery(Info.delivery)
             //products type=array
             const products = Info.products

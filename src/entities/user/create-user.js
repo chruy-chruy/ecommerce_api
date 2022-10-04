@@ -1,6 +1,6 @@
 const makeUserEntity = ({ data }) => {
 
-    const { username, password, first_name, last_name, role } = data;
+    const { username, password, first_name, last_name, role, address } = data;
     const status = "active"
     // console.log(data);
 
@@ -25,6 +25,10 @@ const makeUserEntity = ({ data }) => {
     if (!role) {
         throw new Error("User Role is required.");
     }
+    if (!address) {
+        throw new Error("address is required.");
+    }
+    
 
     return Object.freeze({
         getUsername: () => username,
@@ -32,7 +36,8 @@ const makeUserEntity = ({ data }) => {
         getStatus: () => status,
         getFirstName: () => first_name,
         getLastName: () => last_name,
-        getRole: () => role
+        getRole: () => role,
+        getAddress:() => address
     })
 
 }

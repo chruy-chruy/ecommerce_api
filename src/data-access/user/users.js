@@ -49,12 +49,12 @@ async function getSingleUser({ userId }) {
     }
 }
 
-async function makeUsers({ username, password, status, first_name, last_name, role }) {
+async function makeUsers({ username, password, status, first_name, last_name, role,address }) {
     const db = await connect()
-    const values = [username, password, status, first_name, last_name, role]
+    const values = [username, password, status, first_name, last_name, role, address]
     try {
-        const sql = `INSERT INTO users(username,password,status,first_name,last_name,role)
-                                VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`;
+        const sql = `INSERT INTO users(username,password,status,first_name,last_name,role,address)
+                                VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`;
         try {
             const result = await db.query(sql, values)
             return result.rows

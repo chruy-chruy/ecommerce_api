@@ -16,7 +16,8 @@ const UC_createUser = ({ userDb, makeUserEntity }) => {
             status: userEntity.getStatus(),
             first_name: userEntity.getFirstName(),
             last_name: userEntity.getLastName(),
-            role: userEntity.getRole()
+            role: userEntity.getRole(),
+            address : userEntity.getAddress()
         })
             .catch(err => console.log(err));
 
