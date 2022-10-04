@@ -5,6 +5,7 @@ const query = () => {
     return Object.freeze({
         createSupplier,
         getSupplier,
+        updateSupplier,
     })
 }
 
@@ -31,6 +32,19 @@ async function getSupplier() {
     } catch (error) {
         console.log(error.message)
         return (error.message)
+    }
+}
+
+async function updateSupplier({ supplier_name, contact, address, supplier_id, status }){
+    const db = await connect()
+    const values = [supplier_name, contact, address, supplier_id, status]
+
+    const sql =  `UPDATE supplier SET supplier_name = $1, contact = $2, address = $3 WHERE supplier_id =$4 AND status = $5`
+    try {
+        const result = await db.query(sql,values)
+        return result.rowCount
+    } catch (error) {
+        return error
     }
 }
 

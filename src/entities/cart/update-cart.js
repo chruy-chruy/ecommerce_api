@@ -1,6 +1,5 @@
 const updateCartEntity = ({ data }) => {
-    const { id } = data
-    const { quantity } = data;
+    const { id,quantity } = data
     const status = "active"
     // console.log(data);
 
