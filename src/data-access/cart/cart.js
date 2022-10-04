@@ -27,9 +27,9 @@ async function createCart({ customer_id, product_id, quantity, status }) {
 async function getCustomerCart({ Id }) {
     const db = await connect()
     const values = [Id.id, "active"]
-    const sql = `SELECT c.cart_id,c.created_at,c.customer_id,c.product_id,c.quantity,c.status,c.quantity*p.cost_per_unit as "total_price",p.product_id,p.product_name,
+    const sql = `SELECT c.cart_id,c.created_at,c.customer_id,c.product_id,c.quantity,c.status,c.quantity*p.price as "total_price",p.product_id,p.product_name,
     p.barcode as "product_barcode", p.details as "product_details", p.quantity as "product_quantity",
-    p.img as "product_img", p.quantity as "product_qauntity", p.cost_per_unit as "product_cost_per_unit",
+    p.img as "product_img", p.quantity as "product_qauntity", p.cost_per_unit as "product_cost_per_unit", p.price as "product_price_per_unit",
     p.date_expire as "product_date_expire"
     FROM cart c
     INNER JOIN product p
