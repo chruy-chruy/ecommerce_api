@@ -18,6 +18,7 @@ const orderRoute = require('./route/order')
 const cartRoute = require('./route/cart')
 const logRoute = require('./route/logs')
 const uploadRouter = require('./route/upload')
+const categoryRouter = require('./route/category')
 
 app.use('/api/user', userRoute)
 app.use('/api/customer', customerRoute)
@@ -29,6 +30,7 @@ app.use('/api/order', orderRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/logs', logRoute)
 app.use('/api/images', uploadRouter)
+app.use('/api/category', categoryRouter)
 
 app.use('/api/images', express.static('src/img'))
 
