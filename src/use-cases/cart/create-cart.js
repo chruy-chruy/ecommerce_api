@@ -7,9 +7,14 @@ const UC_createCart = ({ cartDb, makeCartEntity }) => {
     const isExisting = await cartDb
       .isExisting({ product_id, customer_id })
       .catch((err) => console.log(err))
+    const row = isExisting.rows[0]
 
     if (isExisting.rowCount > 0) {
-      throw new Error('Product is already exists')
+      return {
+        statusCode: 400,
+        message: 'Product is already exist',
+        cart_id: row.cart_id,
+      }
     }
 
     const res = await cartDb.createCart({

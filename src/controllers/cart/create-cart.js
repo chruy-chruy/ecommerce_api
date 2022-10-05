@@ -8,26 +8,25 @@ const CON_createCart = ({ createCart }) => {
       source.ip = httpRequest.ip
       source.browser = httpRequest.headers['User-agent']
 
-      const message = await createCart(data)
+      const result = await createCart(data)
 
-      const result = {
+      return {
         headers: {
           'Content-Type': 'application/json',
         },
-        statusCode: 200,
+        statusCode: result.statusCode,
         body: {
-          message: message,
+          error: result.message,
+          cart_id: result.cart_id,
         },
       }
-      console.log(result.body)
-      return result
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error)
       return {
         headers,
         statusCode: 400,
         body: {
-          error: e.message,
+          error: error.message,
         },
       }
     }
