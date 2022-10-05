@@ -6,6 +6,7 @@ const query = () => {
     getCustomerCart,
     removeCart,
     updateCart,
+    isExisting,
   })
 }
 
@@ -82,6 +83,17 @@ async function updateCart({ quantity, cart_id, status }) {
     return result.rowCount
   } catch (error) {
     console.log(error)
+  }
+}
+
+async function isExisting({ customer_id, product_id }) {
+  const db = await connect()
+  const check = [product_id, customer_id]
+  try {
+    const sql = `SELECT * FROM cart where product_id = $1 AND customer_id = $2`
+    return await db.query(sql, check)
+  } catch (error) {
+    console.log('Error: ', error)
   }
 }
 
