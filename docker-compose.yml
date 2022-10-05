@@ -6,5 +6,10 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     container_name: ecommerce-api
+    volumes:
+      - ecommerce-data:/api
     ports:
       - 3007:3001
+
+volumes:
+  ecommerce-data:
