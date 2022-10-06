@@ -39,7 +39,11 @@ async function createLogCustomer({ action_made, customer_id, status }) {
 
 async function getAllUser() {
   const db = await connect()
-  const sql = `SELECT * FROM user_logs WHERE status='active'`
+  const sql = `SELECT l.log_id,l.action_made,l.user_id,l.created_at,l.status,u.first_name,u.last_name,u.username,u.role
+  FROM user_logs l
+  INNER JOIN users u ON l.user_id = u.id
+  WHERE l.status = 'active'
+  `
   try {
     const result = await db.query(sql)
     return result.rows

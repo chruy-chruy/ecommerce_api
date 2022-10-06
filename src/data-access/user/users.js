@@ -93,15 +93,23 @@ async function isExisting({ username }) {
   }
 }
 
-async function updateUser({ password, first_name, last_name, role, id }) {
+async function updateUser({
+  password,
+  first_name,
+  last_name,
+  role,
+  address,
+  id,
+}) {
   const db = await connect()
-  const params = [password, first_name, last_name, role, id]
+  const params = [password, first_name, last_name, role, address, id]
   const sql = `UPDATE users SET 
                     password = $1,
                     first_name = $2,
                     last_name = $3,
-                    role = $4
-                WHERE id = $5`
+                    role = $4,
+                    address = $5
+                WHERE id = $6`
   try {
     const result = await db.query(sql, params)
     return result.rows

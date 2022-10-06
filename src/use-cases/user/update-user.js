@@ -9,6 +9,7 @@ const UC_updateUser = ({ userDb, updateUserEntity }) => {
         first_name: userEntity.getFirstName(),
         last_name: userEntity.getLastName(),
         role: userEntity.getRole(),
+        address: userEntity.getAddress(),
       })
       .catch((err) => console.log(err))
 

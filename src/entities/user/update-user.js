@@ -1,6 +1,6 @@
 const updateUserEntity = ({ data }) => {
   const { id } = data
-  const { password, first_name, last_name, role } = data.UserInfo
+  const { password, first_name, last_name, role, address } = data.UserInfo
 
   if (!password) {
     throw new Error('password is required')
@@ -17,6 +17,9 @@ const updateUserEntity = ({ data }) => {
   if (!role) {
     throw new Error('role is required')
   }
+  if (!address) {
+    throw new Error('address is required')
+  }
 
   return Object.freeze({
     getId: () => id,
@@ -25,6 +28,7 @@ const updateUserEntity = ({ data }) => {
     getFirstName: () => first_name,
     getLastName: () => last_name,
     getRole: () => role,
+    getAddress: () => address,
   })
 }
 module.exports = updateUserEntity

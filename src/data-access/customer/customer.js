@@ -43,7 +43,7 @@ async function createCustomer({
 
 async function getCustomer() {
   const db = await connect()
-  const sql = `SELECT * FROM customer WHERE status='active'`
+  const sql = `SELECT * FROM users WHERE role = 'customer' AND status='active'`
   try {
     const result = await db.query(sql)
     return result.rows
@@ -57,7 +57,7 @@ async function getSingleCustomer({ Id }) {
   const db = await connect()
   const id = [Id.id]
   try {
-    const sql = `SELECT * FROM customer where customer_id = $1`
+    const sql = `SELECT * FROM users where id = $1 AND role = 'customer'`
     const res = await db.query(sql, id)
     return res
   } catch (error) {
@@ -69,40 +69,25 @@ async function isExisting({ username }) {
   const db = await connect()
   const checkusername = [username]
   try {
-    const sql = `SELECT * FROM customer where username = $1`
+    const sql = `SELECT * FROM users where username = $1 AND role = 'customer'`
     return await db.query(sql, checkusername)
   } catch (error) {
     console.log('Error: ', error)
   }
 }
 
-async function updateCustomer({
-  password,
-  first_name,
-  last_name,
-  contact,
-  address,
-  customer_id,
-}) {
+async function updateCustomer({ password, first_name, last_name, role, id }) {
   const db = await connect()
-  const params = [
-    password,
-    first_name,
-    last_name,
-    contact,
-    address,
-    customer_id,
-  ]
-  const sql = `UPDATE customer SET 
-    password = $1,
-    first_name = $2,
-    last_name = $3,
-    contact = $4,
-    address = $5
-  WHERE customer_id = $6`
+  const params = [password, first_name, last_name, role, id]
+  const sql = `UPDATE users SET 
+                    password = $1,
+                    first_name = $2,
+                    last_name = $3,
+                    role = $4
+                WHERE id = $5`
   try {
     const result = await db.query(sql, params)
-    return result
+    return result.rows
   } catch (error) {
     console.log('Error: ', error)
   }
