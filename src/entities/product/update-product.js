@@ -10,6 +10,7 @@ const updateProductEntity = ({ data }) => {
     date_received,
     date_expire,
     img,
+    category,
   } = data.product
   const status = 'active'
   // console.log(data);
@@ -41,6 +42,9 @@ const updateProductEntity = ({ data }) => {
   if (!img) {
     throw new Error('image is required ')
   }
+  if (!category) {
+    throw new Error('category is required ')
+  }
 
   return Object.freeze({
     getProductName: () => product_name,
@@ -54,6 +58,7 @@ const updateProductEntity = ({ data }) => {
     getDateExpire: () => date_expire,
     getImg: () => img,
     getId: () => id,
+    getCategory: () => category,
   })
 }
 module.exports = updateProductEntity

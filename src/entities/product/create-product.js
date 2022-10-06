@@ -9,6 +9,7 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
     date_received,
     date_expire,
     img,
+    category,
   } = product
   const status = 'active'
   // console.log(data);
@@ -43,6 +44,9 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
   if (!img) {
     throw new Error('image is required at product array ' + checkArray)
   }
+  if (!category) {
+    throw new Error('category is required at product array ' + checkArray)
+  }
 
   return Object.freeze({
     getProductName: () => product_name,
@@ -56,6 +60,7 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
     getDateExpire: () => date_expire,
     getDeliveryId: () => delivery_id,
     getImg: () => img,
+    getCategory: () => category,
   })
 }
 module.exports = makeProductEntity

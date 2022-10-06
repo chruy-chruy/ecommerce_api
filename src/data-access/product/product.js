@@ -20,6 +20,7 @@ async function createProduct({
   date_expire,
   delivery_id,
   img,
+  category,
 }) {
   const db = await connect()
   const values = [
@@ -34,9 +35,10 @@ async function createProduct({
     date_expire,
     delivery_id,
     img,
+    category,
   ]
-  const sql = `INSERT INTO product(product_name, barcode, details, quantity, price, cost_per_unit, status, date_received, date_expire,delivery_id, img)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`
+  const sql = `INSERT INTO product(product_name, barcode, details, quantity, price, cost_per_unit, status, date_received, date_expire,delivery_id, img,category)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`
   try {
     const result = await db.query(sql, values)
     return result
@@ -69,6 +71,7 @@ async function updateProduct({
   cost,
   date_expire,
   img,
+  category,
   product_id,
 }) {
   const db = await connect()
@@ -83,6 +86,7 @@ async function updateProduct({
     cost,
     date_expire,
     img,
+    category,
     product_id,
   ]
   const sql = `UPDATE product SET 
@@ -95,11 +99,13 @@ async function updateProduct({
     date_received = $7,
     cost_per_unit = $8,
     date_expire = $9,
-    img = $10
-    WHERE product_id = $11`
+    img = $10,
+    category = $11
+    WHERE product_id = $12`
   try {
     const result = await db.query(sql, params)
-    return result
+    console.log(result)
+    return result.rowCount
   } catch (error) {
     console.log('Error: ', error)
   }
