@@ -7,6 +7,7 @@ const query = () => {
     removeCart,
     updateCart,
     isExisting,
+    addCart,
   })
 }
 
@@ -77,6 +78,20 @@ async function updateCart({ quantity, cart_id, status }) {
   const db = await connect()
   const values = [quantity, cart_id, status]
   const sql = 'UPDATE cart SET quantity = $1 WHERE cart_id = $2 AND status = $3'
+
+  try {
+    const result = await db.query(sql, values)
+    return result.rowCount
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function addCart({ quantity, cart_id, status }) {
+  const db = await connect()
+  const values = [quantity, cart_id, status]
+  const sql =
+    'UPDATE cart SET quantity = quantity+$1 WHERE cart_id = $2 AND status = $3'
 
   try {
     const result = await db.query(sql, values)

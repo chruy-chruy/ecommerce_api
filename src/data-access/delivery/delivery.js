@@ -4,6 +4,7 @@ const query = () => {
   return Object.freeze({
     createDelivery,
     getDelivery,
+    getDeliveryProducts,
   })
 }
 
@@ -16,7 +17,7 @@ async function createDelivery({ supplier_name, date, status }) {
     const result = await db.query(sql, values)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -33,4 +34,16 @@ async function getDelivery() {
   }
 }
 
+async function getDeliveryProducts({ Id }) {
+  const db = await connect()
+  const id = [Id.id]
+  const sql = `SELECT * FROM product where delivery_id = $1`
+  try {
+    const result = await db.query(sql, id)
+    return result
+  } catch (error) {
+    console.log(error)
+    return error.message
+  }
+}
 module.exports = query
