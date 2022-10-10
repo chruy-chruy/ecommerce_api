@@ -10,16 +10,27 @@ const CON_createCart = ({ createCart }) => {
 
       const result = await createCart(data)
 
-      return {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        statusCode: result.statusCode,
-        body: {
-          error: result.message,
-          cart_id: result.cart_id,
-        },
-      }
+      if (result.statusCode == 400) {
+        return {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          statusCode: result.statusCode,
+          body: {
+            error: result.message,
+            cart_id: result.cart_id,
+          },
+        }
+      } else
+        return {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          statusCode: 201,
+          body: {
+            message: result,
+          },
+        }
     } catch (error) {
       console.log(error)
       return {

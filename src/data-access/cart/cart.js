@@ -22,6 +22,7 @@ async function createCart({ customer_id, product_id, quantity, status }) {
     VALUES($1,$2,$3,$4) `
   try {
     const result = await db.query(sql, values)
+    console.log(result)
     return result
   } catch (error) {
     console.log(error.message)
