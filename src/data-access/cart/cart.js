@@ -106,7 +106,7 @@ async function isExisting({ customer_id, product_id }) {
   const db = await connect()
   const check = [product_id, customer_id]
   try {
-    const sql = `SELECT * FROM cart where product_id = $1 AND customer_id = $2`
+    const sql = `SELECT * FROM cart where product_id = $1 AND customer_id = $2 AND status='active'`
     const result = await db.query(sql, check)
     return result
   } catch (error) {
