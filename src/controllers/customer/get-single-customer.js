@@ -9,7 +9,6 @@ const CON_getSingleCustomer = ({ getSingleCustomer }) => {
       }
 
       const user = await getSingleCustomer(toView)
-
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -18,7 +17,7 @@ const CON_getSingleCustomer = ({ getSingleCustomer }) => {
         body: user,
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

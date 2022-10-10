@@ -18,10 +18,10 @@ const CON_loginCustomer = ({ loginCustomer }) => {
           User: data,
         },
       }
-      // console.log(result.body);
+      console.log(result.body)
       return result
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

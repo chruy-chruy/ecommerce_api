@@ -9,7 +9,7 @@ const CON_getDelvieryProducts = ({ getDeliveryProducts }) => {
       }
 
       const res = await getDeliveryProducts(toView)
-
+      console.log(res)
       return {
         headers: {
           'Content-Type': 'application/json',

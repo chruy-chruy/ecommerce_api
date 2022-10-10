@@ -15,6 +15,7 @@ const CON_updateCustomer = ({ updateCustomer }) => {
       }
 
       const message = await updateCustomer(toUpdate)
+      console.log(message)
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ const CON_updateCustomer = ({ updateCustomer }) => {
         body: message,
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

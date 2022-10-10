@@ -13,7 +13,7 @@ const CON_updateSupplier = ({ updateSupplier }) => {
         Info,
       }
       const result = await updateSupplier(toUpdate)
-
+      console.log(result)
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const CON_updateSupplier = ({ updateSupplier }) => {
         body: result,
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
       return {
         headers,
         statusCode: 400,

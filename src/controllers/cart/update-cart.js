@@ -16,6 +16,7 @@ const CON_updateCart = ({ updateCart }) => {
       }
 
       const message = await updateCart(toUpdate)
+      console.log(message)
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +25,7 @@ const CON_updateCart = ({ updateCart }) => {
         body: message,
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

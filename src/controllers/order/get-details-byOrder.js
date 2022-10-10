@@ -18,7 +18,7 @@ const CON_getOrderDetailsbyOrder = ({ getOrderDetailsbyOrder }) => {
         body: order_details,
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

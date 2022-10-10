@@ -29,7 +29,7 @@ async function getDelivery() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }

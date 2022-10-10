@@ -9,7 +9,6 @@ const CON_createDelivery = ({ createDelivery }) => {
       source.browser = httpRequest.headers['User-agent']
 
       const body = await createDelivery(Info)
-
       const result = {
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +19,7 @@ const CON_createDelivery = ({ createDelivery }) => {
       console.log(result.body)
       return result
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

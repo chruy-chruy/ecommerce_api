@@ -20,7 +20,7 @@ const CON_createUser = ({ createUser }) => {
       console.log(result.body)
       return result
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

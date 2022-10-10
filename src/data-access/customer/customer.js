@@ -36,7 +36,7 @@ async function createCustomer({
     const result = await db.query(sql, values)
     return result
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -48,7 +48,7 @@ async function getCustomer() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }

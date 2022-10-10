@@ -18,7 +18,7 @@ const CON_getCustomerCart = ({ getCustomerCart }) => {
         body: cart,
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

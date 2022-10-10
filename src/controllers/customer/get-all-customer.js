@@ -5,7 +5,6 @@ const CON_getCustomer = ({ getCustomer }) => {
     }
     try {
       const result = await getCustomer()
-
       return {
         headers: {
           'Content-Type': 'application/json',

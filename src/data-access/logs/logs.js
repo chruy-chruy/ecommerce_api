@@ -18,7 +18,7 @@ async function createLogUser({ action_made, user_id, status }) {
     const result = await db.query(sql, values)
     return result.rowCount
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -32,7 +32,7 @@ async function createLogCustomer({ action_made, customer_id, status }) {
     const result = await db.query(sql, values)
     return result.rowCount
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -48,7 +48,7 @@ async function getAllUser() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -60,7 +60,7 @@ async function getAllCustomer() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }

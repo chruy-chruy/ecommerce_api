@@ -74,7 +74,7 @@ async function makeUsers({
       const result = await db.query(sql, values)
       return result.rows
     } catch (error) {
-      console.log('error: ' + error.message)
+      console.log('error: ' + error)
       return 'error: ' + error.message
     }
   } catch (error) {

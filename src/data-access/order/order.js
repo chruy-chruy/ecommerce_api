@@ -74,14 +74,9 @@ async function createOrderDetails({
     //insert product details to order_details
     const result = await db.query(order_sql, order_values)
 
-    //get product quantity
-    const product_quantity = await db.query(get_product, get_product_values)
-    const p_quantity = product_quantity.rows[0].quantity
-
     //deduct the product order quantity to database
-    const deducted = p_quantity - quantity
-    const product_values = [deducted, product_id]
-    const product_sql = `UPDATE product SET quantity = $1 WHERE product_id = $2`
+    const product_values = [quantity, product_id]
+    const product_sql = `UPDATE product SET quantity = quantity-$1 WHERE product_id = $2`
     update_product = await db.query(product_sql, product_values)
 
     return result
@@ -99,7 +94,7 @@ async function checkCart(cart_id) {
     const result = await db.query(cart_sql, cart_values)
     return result.rowCount
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -112,7 +107,7 @@ async function getOrderbyCustomer(customer_id) {
     const result = await db.query(sql, values)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -125,7 +120,7 @@ async function updateCart(cart_id) {
     const result = await db.query(cart_sql, cart_values)
     return result.rowCount
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -137,7 +132,7 @@ async function getOrder() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }

@@ -9,7 +9,7 @@ const CON_createCart = ({ createCart }) => {
       source.browser = httpRequest.headers['User-agent']
 
       const result = await createCart(data)
-
+      console.log(result)
       if (result.statusCode == 400) {
         return {
           headers: {

@@ -9,7 +9,7 @@ const CON_createProduct = ({ createProductCategory }) => {
       source.browser = httpRequest.headers['User-agent']
 
       const result = await createProductCategory(data)
-
+      console.log(result)
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const CON_createProduct = ({ createProductCategory }) => {
         },
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

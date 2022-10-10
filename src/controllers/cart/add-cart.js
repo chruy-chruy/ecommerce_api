@@ -16,6 +16,7 @@ const CON_addCart = ({ addCart }) => {
       }
 
       const message = await addCart(toAdd)
+      console.log(message)
       return {
         headers: {
           'Content-Type': 'application/json',

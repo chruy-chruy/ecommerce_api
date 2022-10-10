@@ -10,7 +10,7 @@ const CON_createLog = ({ createLogCustomer }) => {
       source.browser = httpRequest.headers['User-agent']
 
       const res = await createLogCustomer(data)
-
+      console.log(res)
       const result = {
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const CON_createLog = ({ createLogCustomer }) => {
       }
       return result
     } catch (e) {
-      console.log(e.message)
+      console.log(e)
       return {
         headers,
         statusCode: 400,

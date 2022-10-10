@@ -17,7 +17,7 @@ async function createSupplier({ supplier_name, contact, address, status }) {
     const result = await db.query(sql, values)
     return result
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }
@@ -29,7 +29,7 @@ async function getSupplier() {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return error.message
   }
 }

@@ -104,7 +104,6 @@ async function updateProduct({
     WHERE product_id = $12`
   try {
     const result = await db.query(sql, params)
-    console.log(result)
     return result.rowCount
   } catch (error) {
     console.log('Error: ', error)

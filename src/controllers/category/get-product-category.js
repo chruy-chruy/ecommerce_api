@@ -5,7 +5,6 @@ const CON_getProduct = ({ getProductCategory }) => {
     }
     try {
       const result = await getProductCategory()
-
       return {
         headers: {
           'Content-Type': 'application/json',

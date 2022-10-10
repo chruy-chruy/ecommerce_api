@@ -25,7 +25,7 @@ async function createCart({ customer_id, product_id, quantity, status }) {
     console.log(result)
     return result
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
   }
 }
 
@@ -58,7 +58,7 @@ WHERE c.customer_id = $1 AND c.status = $2`
     const result = await db.query(sql, values)
     return result.rows
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
   }
 }
 

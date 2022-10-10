@@ -5,7 +5,6 @@ const CON_getDelivery = ({ getDelivery }) => {
     }
     try {
       const result = await getDelivery()
-
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ const CON_getDelivery = ({ getDelivery }) => {
         headers,
         statusCode: 400,
         body: {
-          error: e.message,
+          error: e,
         },
       }
     }
