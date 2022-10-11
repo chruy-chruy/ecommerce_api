@@ -4,10 +4,10 @@ const {
   update_product,
 } = require('../../controllers/product/index')
 
-const productRouter = ({ router, upload, makeExpressCallback }) => {
+const productRouter = ({ router, verifyToken, makeExpressCallback }) => {
   router.get('/', makeExpressCallback(get_product))
-  router.post('/', upload, makeExpressCallback(create_product))
-  router.patch('/:id', makeExpressCallback(update_product))
+  router.post('/', verifyToken, makeExpressCallback(create_product))
+  router.patch('/:id', verifyToken, makeExpressCallback(update_product))
 
   return router
 }

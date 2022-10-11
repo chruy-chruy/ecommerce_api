@@ -6,7 +6,7 @@ const orderRouter = require('./route')
 const verifyToken = require('../../middleware/jwt/verifyToken')
 
 const router = express.Router()
-const route = orderRouter({ router, makeExpressCallback })
+const route = orderRouter({ router, verifyToken, makeExpressCallback })
 
 const services = Object.freeze({
   route,

@@ -7,7 +7,7 @@ const verifyToken = require('../../middleware/jwt/verifyToken')
 const { upload } = require('../../middleware/multer/upload-image')
 
 const router = express.Router()
-const route = productRouter({ router, upload, makeExpressCallback })
+const route = productRouter({ router, verifyToken, makeExpressCallback })
 
 const services = Object.freeze({
   route,

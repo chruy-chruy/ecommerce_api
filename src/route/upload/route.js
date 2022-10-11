@@ -1,7 +1,7 @@
 const { upload } = require('../../middleware/multer/upload-image')
 
-const userRouter = ({ router }) => {
-  router.post('/', upload, (req, res) => {
+const userRouter = ({ router, verifyToken }) => {
+  router.post('/', verifyToken, upload, (req, res) => {
     try {
       if (req.files) {
         res.status(201).send('images add succesfully')

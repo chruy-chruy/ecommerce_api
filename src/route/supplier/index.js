@@ -6,7 +6,7 @@ const supplierRouter = require('./route')
 const verifyToken = require('../../middleware/jwt/verifyToken')
 
 const router = express.Router()
-const route = supplierRouter({ router, makeExpressCallback })
+const route = supplierRouter({ router, verifyToken, makeExpressCallback })
 
 const services = Object.freeze({
   route,

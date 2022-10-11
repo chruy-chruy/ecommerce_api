@@ -5,11 +5,15 @@ const {
   get_order_customer,
 } = require('../../controllers/order/index')
 
-const orderRouter = ({ router, makeExpressCallback }) => {
-  router.get('/', makeExpressCallback(get_order))
-  router.post('/', makeExpressCallback(create_order_details))
-  router.get('/details/:id', makeExpressCallback(get_OrderDetailsbyOrder))
-  router.get('/:id', makeExpressCallback(get_order_customer))
+const orderRouter = ({ router, verifyToken, makeExpressCallback }) => {
+  router.get('/', verifyToken, makeExpressCallback(get_order))
+  router.post('/', verifyToken, makeExpressCallback(create_order_details))
+  router.get(
+    '/details/:id',
+    verifyToken,
+    makeExpressCallback(get_OrderDetailsbyOrder),
+  )
+  router.get('/:id', verifyToken, makeExpressCallback(get_order_customer))
 
   return router
 }

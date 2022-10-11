@@ -6,7 +6,7 @@ const categoryRouter = require('./route')
 const verifyToken = require('../../middleware/jwt/verifyToken')
 
 const router = express.Router()
-const route = categoryRouter({ router, makeExpressCallback })
+const route = categoryRouter({ router, verifyToken, makeExpressCallback })
 
 const services = Object.freeze({
   route,

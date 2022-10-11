@@ -4,10 +4,10 @@ const {
   get_delivery_products,
 } = require('../../controllers/delivery/index')
 
-const deliveryRouter = ({ router, makeExpressCallback }) => {
-  router.get('/', makeExpressCallback(get_delivery))
-  router.post('/', makeExpressCallback(create_delivery))
-  router.get('/:id', makeExpressCallback(get_delivery_products))
+const deliveryRouter = ({ router, verifyToken, makeExpressCallback }) => {
+  router.get('/', verifyToken, makeExpressCallback(get_delivery))
+  router.post('/', verifyToken, makeExpressCallback(create_delivery))
+  router.get('/:id', verifyToken, makeExpressCallback(get_delivery_products))
   return router
 }
 
