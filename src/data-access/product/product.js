@@ -50,7 +50,7 @@ async function createProduct({
 
 async function getProduct() {
   const db = await connect()
-  const sql = `SELECT * FROM product WHERE status='active'`
+  const sql = `SELECT * FROM product WHERE status='active' ORDER BY product_id DESC`
   try {
     const result = await db.query(sql)
     return result.rows

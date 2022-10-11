@@ -17,7 +17,9 @@ const userDb = () => {
 async function getUsers() {
   const db = await connect()
   try {
-    const result = await db.query(`SELECT * FROM users WHERE status = 'active'`)
+    const result = await db.query(
+      `SELECT * FROM users WHERE status = 'active' ORDER BY id DESC`,
+    )
     return result.rows
   } catch (error) {
     console.log('Error: ', error)

@@ -21,39 +21,13 @@ async function createProduct({ name, status }) {
 
 async function getProduct() {
   const db = await connect()
-  const sql = `SELECT * FROM category WHERE status='active'`
+  const sql = `SELECT * FROM category WHERE status='active' ORDER BY category_id DESC`
   try {
     const result = await db.query(sql)
     return result.rows
   } catch (error) {
     console.log(error)
     return error.message
-  }
-}
-
-async function removeCart({ data }) {
-  const db = await connect()
-  const id = ['deleted', data.id]
-
-  const sql = `UPDATE cart SET status = $1 WHERE cart_id = $2`
-  try {
-    const result = await db.query(sql, id)
-    return result
-  } catch (error) {
-    console.log('Error: ', error)
-  }
-}
-
-async function updateCart({ quantity, cart_id, status }) {
-  const db = await connect()
-  const values = [quantity, cart_id, status]
-  const sql = 'UPDATE cart SET quantity = $1 WHERE cart_id = $2 AND status = $3'
-
-  try {
-    const result = await db.query(sql, values)
-    return result.rowCount
-  } catch (error) {
-    console.log(error)
   }
 }
 

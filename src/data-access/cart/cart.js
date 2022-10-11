@@ -53,7 +53,7 @@ async function getCustomerCart({ Id }) {
 FROM cart c
 INNER JOIN product p
     ON c.product_id = p.product_id	
-WHERE c.customer_id = $1 AND c.status = $2`
+WHERE c.customer_id = $1 AND c.status = $2 ORDER BY c.cart_id DESC`
   try {
     const result = await db.query(sql, values)
     return result.rows

@@ -24,7 +24,7 @@ async function createSupplier({ supplier_name, contact, address, status }) {
 
 async function getSupplier() {
   const db = await connect()
-  const sql = `SELECT * FROM supplier WHERE status='active'`
+  const sql = `SELECT * FROM supplier WHERE status='active' ORDER BY supplier_id DESC`
   try {
     const result = await db.query(sql)
     return result.rows

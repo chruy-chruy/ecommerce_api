@@ -102,7 +102,7 @@ async function checkCart(cart_id) {
 async function getOrderbyCustomer(customer_id) {
   const db = await connect()
   const values = ['active', customer_id]
-  const sql = `SELECT * FROM orders WHERE status = $1 AND customer_id = $2`
+  const sql = `SELECT * FROM orders WHERE status = $1 AND customer_id = $2 ORDER BY order_id DESC`
   try {
     const result = await db.query(sql, values)
     return result.rows
@@ -127,7 +127,7 @@ async function updateCart(cart_id) {
 
 async function getOrder() {
   const db = await connect()
-  const sql = `SELECT * FROM orders WHERE status='active'`
+  const sql = `SELECT * FROM orders WHERE status='active' ORDER BY order_id DESC`
   try {
     const result = await db.query(sql)
     return result.rows
@@ -141,7 +141,7 @@ async function getOrderDetailsbyOrder({ order_id }) {
   const db = await connect()
   const id = [order_id.id]
   try {
-    const sql = `SELECT * FROM order_details where order_id = $1`
+    const sql = `SELECT * FROM order_details where order_id = $1 ORDER BY order_details_id DESC`
     const res = await db.query(sql, id)
     return res.rows
   } catch (error) {

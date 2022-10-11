@@ -24,7 +24,7 @@ async function createDelivery({ supplier_name, date, status }) {
 
 async function getDelivery() {
   const db = await connect()
-  const sql = `SELECT * FROM delivery WHERE status='active'`
+  const sql = `SELECT * FROM delivery WHERE status='active' ORDER BY delivery_id DESC`
   try {
     const result = await db.query(sql)
     return result.rows
@@ -37,7 +37,7 @@ async function getDelivery() {
 async function getDeliveryProducts({ Id }) {
   const db = await connect()
   const id = [Id.id]
-  const sql = `SELECT * FROM product where delivery_id = $1`
+  const sql = `SELECT * FROM product where delivery_id = $1 ORDER BY product_id DESC`
   try {
     const result = await db.query(sql, id)
     return result

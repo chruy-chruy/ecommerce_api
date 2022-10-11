@@ -42,7 +42,7 @@ async function getAllUser() {
   const sql = `SELECT l.log_id,l.action_made,l.user_id,l.created_at,l.status,u.first_name,u.last_name,u.username,u.role
   FROM user_logs l
   INNER JOIN users u ON l.user_id = u.id
-  WHERE l.status = 'active'
+  WHERE l.status = 'active' ORDER BY l.log_id DESC
   `
   try {
     const result = await db.query(sql)
@@ -55,7 +55,7 @@ async function getAllUser() {
 
 async function getAllCustomer() {
   const db = await connect()
-  const sql = `SELECT * FROM customer_logs WHERE status='active'`
+  const sql = `SELECT * FROM customer_logs WHERE status='active' `
   try {
     const result = await db.query(sql)
     return result.rows
