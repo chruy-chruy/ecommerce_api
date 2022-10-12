@@ -141,7 +141,13 @@ async function getOrderDetailsbyOrder({ order_id }) {
   const db = await connect()
   const id = [order_id.id]
   try {
-    const sql = `SELECT * FROM order_details where order_id = $1 ORDER BY order_details_id DESC`
+    const sql = `SELECT p.*, u.first_name, u.last_name
+    FROM order_details p
+    INNER JOIN orders o 
+        ON  p.order_id = o.order_id 
+    INNER JOIN users u
+      ON  o.customer_id = u.id 
+    where p.order_id = $1 ORDER BY order_details_id DESC`
     const res = await db.query(sql, id)
     return res.rows
   } catch (error) {
