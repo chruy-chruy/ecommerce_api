@@ -27,7 +27,7 @@ const makeProductEntity = ({ product, checkArray, delivery_id }) => {
     throw new Error('details is required at product array ' + checkArray)
   }
   if (!quantity) {
-    throw new Error('quantity i required at product array ' + checkArray)
+    throw new Error('quantity is required at product array ' + checkArray)
   }
   if (!price) {
     throw new Error('price is required at product array ' + checkArray)

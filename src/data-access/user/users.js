@@ -58,6 +58,7 @@ async function makeUsers({
   last_name,
   role,
   address,
+  contact,
 }) {
   const db = await connect()
   const values = [
@@ -68,10 +69,11 @@ async function makeUsers({
     last_name,
     role,
     address,
+    contact,
   ]
   try {
-    const sql = `INSERT INTO users(username,password,status,first_name,last_name,role,address)
-                                VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`
+    const sql = `INSERT INTO users(username,password,status,first_name,last_name,role,address,contact)
+                                VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`
     try {
       const result = await db.query(sql, values)
       return result.rows

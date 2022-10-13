@@ -8,7 +8,7 @@ const UC_createUser = ({ userDb, makeUserEntity }) => {
       .catch((err) => console.log(err))
 
     if (isExisting.rowCount > 0) {
-      throw new Error('User already exists')
+      throw new Error('username already exists')
     }
 
     const res = await userDb
@@ -20,6 +20,7 @@ const UC_createUser = ({ userDb, makeUserEntity }) => {
         last_name: userEntity.getLastName(),
         role: userEntity.getRole(),
         address: userEntity.getAddress(),
+        contact: userEntity.getContact(),
       })
       .catch((err) => console.log(err))
 

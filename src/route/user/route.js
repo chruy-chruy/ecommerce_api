@@ -9,7 +9,7 @@ const {
 
 const userRouter = ({ router, verifyToken, makeExpressCallback }) => {
   router.get('/', verifyToken, makeExpressCallback(fetchUsers))
-  router.post('/', verifyToken, makeExpressCallback(create))
+  router.post('/', makeExpressCallback(create))
   router.get('/:id', verifyToken, makeExpressCallback(fetchSingleUser))
   router.patch('/:id', verifyToken, makeExpressCallback(updateUserController))
   router.delete(
