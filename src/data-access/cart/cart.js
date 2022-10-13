@@ -53,7 +53,7 @@ async function getCustomerCart({ Id }) {
 FROM cart c
 INNER JOIN product p
     ON c.product_id = p.product_id	
-WHERE c.customer_id = $1 AND c.status = $2 ORDER BY c.cart_id DESC`
+WHERE c.customer_id = $1 AND c.status = $2  ORDER BY c.cart_id DESC`
   try {
     const result = await db.query(sql, values)
     return result.rows
@@ -78,7 +78,7 @@ async function removeCart({ data }) {
 async function updateCart({ quantity, cart_id, status }) {
   const db = await connect()
   const values = [quantity, cart_id, status]
-  const sql = 'UPDATE cart SET quantity = $1 WHERE cart_id = $2 AND status = $3'
+  const sql = `UPDATE cart SET quantity = $1 WHERE cart_id = $2 AND status = $3`
 
   try {
     const result = await db.query(sql, values)
@@ -91,12 +91,11 @@ async function updateCart({ quantity, cart_id, status }) {
 async function addCart({ quantity, cart_id, status }) {
   const db = await connect()
   const values = [quantity, cart_id, status]
-  const sql =
-    'UPDATE cart SET quantity = quantity+$1 WHERE cart_id = $2 AND status = $3'
+  const sql = `UPDATE cart SET quantity = quantity+$1 WHERE cart_id = $2 AND status = $3 RETURNING quantity`
 
   try {
     const result = await db.query(sql, values)
-    return result.rowCount
+    return result
   } catch (error) {
     console.log(error)
   }
