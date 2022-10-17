@@ -6,7 +6,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 // app.use(express.urlencoded({ extended: false }));
-app.use(express.urlencoded({ extended: true }))
+// app.use(express.urlencoded({ extended: true }))
 
 const userRoute = require('./route/user')
 const customerRoute = require('./route/customer')
@@ -20,6 +20,7 @@ const logRoute = require('./route/logs')
 const uploadRouter = require('./route/upload')
 const categoryRouter = require('./route/category')
 
+app.use('/api/images', express.static('src/img'))
 app.use('/api/user', userRoute)
 app.use('/api/customer', customerRoute)
 app.use('/api/supplier', supplierRoute)
@@ -31,7 +32,5 @@ app.use('/api/cart', cartRoute)
 app.use('/api/logs', logRoute)
 app.use('/api/images', uploadRouter)
 app.use('/api/category', categoryRouter)
-
-app.use('/api/images', express.static('src/img'))
 
 module.exports = app
